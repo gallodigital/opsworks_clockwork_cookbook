@@ -1,0 +1,5 @@
+check process clockwork_<%= @name %>
+  with pidfile "<%= @pid_file %>"
+  start program = "/usr/local/bin/start_clockwork_<%= @name %>.sh" with timeout 30 seconds
+  stop program = "/usr/local/bin/stop_clockwork_<%= @name %>.sh" with timeout 30 seconds
+  group <%= @name %>
