@@ -44,6 +44,7 @@ action :create do
               "user" => user,
               "name" => name,
               "rails_root" => rails_root,
+              "rails_env" => rails_env,
               "clock" => clock
   end
 
@@ -58,6 +59,7 @@ action :create do
               "user" => user,
               "name" => name,
               "rails_root" => rails_root,
+              "rails_env" => rails_env,
               "clock" => clock
   end
 
