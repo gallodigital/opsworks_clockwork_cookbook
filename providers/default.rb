@@ -12,8 +12,8 @@ action :create do
   pid_file   = "#{pid_dir}/clockworkd.#{clock_name}.pid"
   log_file   = "#{log_dir}/clockworkd.#{clock_name}.output"
 
-  execute "reload-monit" do
-    command "monit reload"
+  execute "reload-monit-for-clockwork" do
+    command "monit -Iv reload"
     action :nothing
   end
 
@@ -72,7 +72,13 @@ action :create do
     mode '0644'
     variables "name" => name,
               "pid_file" => pid_file
-    notifies :run, "execute[reload-monit]"
+    notifies :run, "execute[reload-monit-for-clockwork]", :immediately # Run immediately to ensure the following command works
+  end
+
+  # Restart clockwork if it's already running
+  execute "restart-clockwork-service" do
+    command "monit -Iv restart clockwork_#{name}"
+    only_if { ::File.exists?(pid_file) }
   end
 
   new_resource.updated_by_last_action(true)
