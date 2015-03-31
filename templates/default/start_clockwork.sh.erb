@@ -4,4 +4,10 @@ export RAILS_ENV="<%= @rails_env %>"
 export RACK_ENV="<%= @rails_env %>"
 export PATH=/usr/local/bin:/usr/local/sbin:/opt/aws/bin:$PATH
 
+<% if !@environment.nil? && @environment != {} %>
+	<% @environment.each do |key, value| %>
+export <%= key %>="<%= value %>"
+	<% end %>
+<% end %>
+
 su <%= @user %> -s /bin/bash -c 'cd <%= @rails_root %> && /usr/local/bin/bundle exec clockworkd --pid-dir=<%= @pid_dir %> --log --log-dir=<%= @log_dir %> --clock=<%= @clock %> start'
