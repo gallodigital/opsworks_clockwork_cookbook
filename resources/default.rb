@@ -6,6 +6,7 @@ attribute :working_directory, :kind_of => [String, NilClass], :required => true
 
 attribute :user, :kind_of => [String], :required => true
 attribute :group, :kind_of => [String, NilClass], :default => 'root'
+attribute :environment, :kind_of => Hash, :default => {}
 
 attribute :clock_file, :kind_of => [String, NilClass], :default => nil
 attribute :pid_dir, :kind_of => [String, NilClass], :default => nil
