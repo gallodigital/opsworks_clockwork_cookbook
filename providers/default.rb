@@ -2,6 +2,7 @@ action :create do
   name       = new_resource.name
   user       = new_resource.user
   group      = new_resource.group
+  envs       = new_resource.environment
   rails_root = new_resource.working_directory
   rails_env  = new_resource.rails_env || node['clockwork']['rails_env']
   clock      = new_resource.clock_file || node['clockwork']['clock']
@@ -61,7 +62,8 @@ action :create do
               "name" => name,
               "rails_root" => rails_root,
               "rails_env" => rails_env,
-              "clock" => clock
+              "clock" => clock,
+              "environment" => envs
   end
 
   template "#{node.default["monit"]["conf_dir"]}/clockwork_#{name}.monitrc" do
