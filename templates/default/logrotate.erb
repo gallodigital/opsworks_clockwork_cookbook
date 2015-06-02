@@ -1,0 +1,9 @@
+<%= @log_dir %>/*.output {
+  copytruncate
+  daily
+  missingok
+  rotate 7
+  compress
+  delaycompress
+  notifempty
+}
