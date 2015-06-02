@@ -77,6 +77,15 @@ action :create do
     notifies :run, "execute[reload-monit-for-clockwork]", :immediately # Run immediately to ensure the following command works
   end
 
+  template "/etc/logrotate.d/clockwork_#{name}" do
+    source 'logrotate.erb'
+    cookbook 'opsworks_clockwork'
+    owner 'root'
+    group 'root'
+    variables 'log_dir' => log_dir
+    mode 0644
+  end
+
   # Restart clockwork if it's already running
   execute "restart-clockwork-service" do
     command "monit -Iv restart clockwork_#{name}"
